@@ -32,6 +32,8 @@ The output from the previous step is used to generate two versions of corpus. On
 
 **(a) Corpus for vocabulary generation**
 
+> This step can be **skipped** if we want to retain numbers and non-english characters. 
+
 *Example:*
 ```
 ./gen_filtered_vocab_text.sh combined.txt corpus_for_vocab_gen.txt 
