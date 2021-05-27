@@ -1,50 +1,31 @@
-set -v
-echo "Pretraining with an fresh start -no checkpoint used"
-
-export INPUT_PRETRAIN_FILE=`pwd`/records/bert.tfrecord*
-
-export OUTPUT_DIR=`pwd`/output
+CONTINUED_TRAINING=${1-0}
+INIT_CHECKPOINT=${2-""}
+INPUT_PRETRAIN_FILE=${3-`pwd`/records/bert.tfrecord*}
+OUTPUT_DIR=${4-`pwd`/output}
 
 
+export INPUT_PRETRAIN_FILE
+export OUTPUT_DIR
 
-export BERT_VOCAB_FILE=`pwd`/vocab_dir/vocab.txt
+. ./config.sh
 
-export BERT_SCRIPTS=`pwd`/bert
+if [ $CONTINUED_TRAINING -eq 0 ]
+then 
+        echo "Pretraining with an fresh start -no checkpoint used"
+else
+        echo "Starting with previous checkpoint: $INIT_CHECKPOINT"
+fi
 
-#****** this must match data generation
-export MAX_PREDICTIONS_PER_SEQ=20 
 
-export TRAIN_BATCH_SIZE=32
+echo "Input dir:" $INPUT_PRETRAIN_FILE " Output dir: " $OUTPUT_DIR
+echo "Scripts path:" $BERT_SCRIPTS
 
 
-#***** this must match data generation
-export MAX_SEQ_LENGTH=512
-
-export NUM_TRAIN_STEPS=200000
-
-#WARMUP is 1% of full train steps
-export NUM_WARMUP_STEPS=1000
-#export NUM_WARMUP_STEPS=0
-
-export MAX_EVAL_STEPS=5
-
-#export SAVE_CHECKPOINT_STEPS=100000
-export SAVE_CHECKPOINT_STEPS=40000
-
-export LEARNING_RATE=2e-5
-#export LEARNING_RATE=1e-6
-
-export BERT_CONFIG_FILE=`pwd`/configs/uncased_base/bert_config.json
 
 mkdir -p $OUTPUT_DIR
 cp $BERT_VOCAB_FILE $OUTPUT_DIR
 cp $BERT_CONFIG_FILE $OUTPUT_DIR
 
-export CONTINUED_TRAINING=0
-
-#enable this for continued training
-#export CONTINUED_TRAINING=1
-#export INIT_CHECKPOINT=`pwd`/run1/save_5/model.ckpt-500000
 
 
 if [ $CONTINUED_TRAINING -eq 0 ]

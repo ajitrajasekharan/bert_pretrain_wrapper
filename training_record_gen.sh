@@ -1,39 +1,21 @@
-INPUT_DIR=`pwd`/pieces
-#INPUT_DIR=`pwd`/sm
-export INPUT_DIR
+INPUT_DIR=${1-`pwd`/pieces}
+OUTPUT_DIR=${2-`pwd`/records}
 
-export OUTPUT_DIR=`pwd`/records
-
-export BERT_SCRIPTS=`pwd`/bert
-
-export BERT_VOCAB_FILE=`pwd`/vocab_dir/vocab.txt
+export INPUT_DIR OUTPUT_DIR
 
 
-#Remember to set this to False for cased models
-export DO_LOWER_CASE=False
+. ./config.sh
 
-#This needs to be same for both training record gen and actual training
-export MAX_SEQ_LENGTH=128
+echo "Input dir:" $INPUT_DIR " Output dir: " $OUTPUT_DIR
+echo "Scripts path:" $BERT_SCRIPTS " Training script: " $TRAINING_RECORD_GEN_SCRIPT
 
-export DUPE_FACTOR=10
 
-#This needs to be same for both training record gen and actual training
-export MAX_PREDICTIONS_PER_SEQ=20
 
-export MASKED_LM_PROB=0.15 
-export RANDOM_SEED=12345 
-
-rm -rf $OUTPUT_DIR
+#rm -rf $OUTPUT_DIR
 mkdir -p $OUTPUT_DIR
-#NOTE: Whole word masking needs to be set at traiing record gen. It is not even relevant during actual training. The option is ignored during training even if set
-#Dupe factor is key - controls how many times a sentence is duplicated to generate diffferent maskings of the sentence
 
 
-#export NUM_THREADS=`nproc`
-#I can only schedule 24 - my quota is 32
-export NUM_THREADS=24
-#to install parallel on ubuntu: apt-get install -y parallel
-export PARALLEL_EXEC=`which parallel`
+
 
 function create_pretrain_data
 {
@@ -43,7 +25,7 @@ function create_pretrain_data
     export OUTPUT_PRETRAIN_FILE=$OUTPUT_DIR/bert.tfrecord$2
     echo $BERT_SCRIPTS $INPUT_FILE $OUTPUT_PRETRAIN_FILE | tee -a $LAST_RUN_LOG
 
-    echo "python $BERT_SCRIPTS/create_pretraining_data.py \
+    echo "python $BERT_SCRIPTS/$TRAINING_RECORD_GEN_SCRIPT \
     --input_file=$INPUT_FILE \
     --output_file=$OUTPUT_PRETRAIN_FILE \
     --vocab_file=$BERT_VOCAB_FILE \
@@ -55,7 +37,7 @@ function create_pretrain_data
     --do_whole_word_mask=True\
     --dupe_factor=$DUPE_FACTOR"
 
-    python $BERT_SCRIPTS/create_pretraining_data.py \
+    python $BERT_SCRIPTS/$TRAINING_RECORD_GEN_SCRIPT \
     --input_file=$INPUT_FILE \
     --output_file=$OUTPUT_PRETRAIN_FILE \
     --vocab_file=$BERT_VOCAB_FILE \

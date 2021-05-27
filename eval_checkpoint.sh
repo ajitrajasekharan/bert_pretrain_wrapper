@@ -1,46 +1,13 @@
-set -v
+export INPUT_PRETRAIN_FILE=${1-`pwd`/records/bert.tfrecord*}
+export OUTPUT_DIR=${2-`pwd`/eval}
 echo "Eval checkpoint"
-export OUTPUT_DIR=${1?"specify output dir"}
-export BASE_DIR=${2-/home/ajit/protein_experiment/code/pretrain_5.0_release}
 
 
+. ./config.sh
 
-echo $OUTPUT_DIR
+echo "Input dir:" $INPUT_PRETRAIN_FILE " Output dir: " $OUTPUT_DIR
+echo "Scripts path:" $BERT_SCRIPTS
 
-export INPUT_PRETRAIN_FILE=$BASE_DIR/records/bert.tfrecord*
-
-
-export BERT_VOCAB_FILE=$BASE_DIR/vocab_dir/vocab.txt
-
-export BERT_SCRIPTS=$BASE_DIR/bert
-
-export BERT_CONFIG_FILE=$BASE_DIR/configs/uncased_base/bert_config.json
-
-#****** this must match data generation
-export MAX_PREDICTIONS_PER_SEQ=20 
-
-export TRAIN_BATCH_SIZE=64
-
-
-#***** this must match data generation
-#export MAX_SEQ_LENGTH=64
-#export MAX_SEQ_LENGTH=128
-export MAX_SEQ_LENGTH=512
-
-
-export NUM_TRAIN_STEPS=200000
-
-#export MAX_EVAL_STEPS=100
-export MAX_EVAL_STEPS=10
-
-#export SAVE_CHECKPOINT_STEPS=100000
-export SAVE_CHECKPOINT_STEPS=5000
-
-export LEARNING_RATE=2e-5
-#export LEARNING_RATE=4e-5
-
-
-export NUM_WARMUP_STEPS=0
 
 cp $BERT_VOCAB_FILE $OUTPUT_DIR
 cp $BERT_CONFIG_FILE $OUTPUT_DIR
@@ -50,7 +17,7 @@ echo "time python $BERT_SCRIPTS/run_pretraining.py \
             --output_dir=$OUTPUT_DIR \
             --do_eval=True \
             --bert_config_file=$BERT_CONFIG_FILE \
-            --train_batch_size=$TRAIN_BATCH_SIZE \
+            --train_batch_size=$EVAL_BATCH_SIZE \
             --max_seq_length=$MAX_SEQ_LENGTH \
             --max_eval_steps=$MAX_EVAL_STEPS \
             --save_checkpoints_steps=$SAVE_CHECKPOINT_STEPS \
@@ -66,7 +33,7 @@ time python $BERT_SCRIPTS/run_pretraining.py \
             --output_dir=$OUTPUT_DIR \
             --do_eval=True \
             --bert_config_file=$BERT_CONFIG_FILE \
-            --train_batch_size=$TRAIN_BATCH_SIZE \
+            --train_batch_size=$EVAL_BATCH_SIZE \
             --max_seq_length=$MAX_SEQ_LENGTH \
             --max_eval_steps=$MAX_EVAL_STEPS \
             --save_checkpoints_steps=$SAVE_CHECKPOINT_STEPS \
