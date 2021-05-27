@@ -65,7 +65,7 @@ Use the corpus from *Step 2a.*  to generate vocabulary
 ./gen_pieces.sh   filtered.txt pieces
 ```
 
-**(b) This step creates actual training records. **
+**(b) This step creates actual training records.**
 
 ```
 The configuration parameters that need to be set are in this script file itself. They are 
