@@ -5,8 +5,8 @@
 Details of the pre-training evaluation as well pre-training tips in [the medium post](https://towardsdatascience.com/quantitative-evaluation-of-a-pre-trained-bert-model-73d56719539e) 
 
 ## Environment setup 
-Setup pytorch environment with/without GPU support using [link](https://github.com/ajitrajasekharan/multi_gpu_test)
-
+ - Setup pytorch environment with/without GPU support using [link](https://github.com/ajitrajasekharan/multi_gpu_test)
+ - For multi gpu training, Nvidia container may also be required. See section below on *Multi GPU run using Nvidia container*
 
 ## Steps to pretrain starting with corpus pre-processing
 
@@ -17,7 +17,7 @@ Setup pytorch environment with/without GPU support using [link](https://github.c
 
 Use [this repository code](https://github.com/ajitrajasekharan/simple_sbd.git) for sentence boundary detection
 
-Perform sentence boundary detection using script bert_sbd.py. It filters out lines less than min_words (3) and greater than max_words (words not characters)
+Perform sentence boundary detection using script *bert_sbd.py*. It filters out lines less than min_words (3) and greater than max_words (words not characters)
 Then “tr” the output to lowercase approx. This is only required for uncased model pretraining.
 
 *Example:*
@@ -69,14 +69,14 @@ Use the corpus from *Step 2a.*  to generate vocabulary
 
 ```
 The configuration parameters that need to be set are in this script file itself. They are 
-INPUT_DIR  - this is directory where the pieces from step 4a are stored
-OUTPUT_DIR - output where checkpoints will be stored
-BERT_VOCAB_FILE - absolute path of vocab file from step 3.
-BERT_SCRIPTS  - location where github scripts of Google’s pretraining scripts are
-DO_LOWER_CASE - set this to false for lower case models
-MAX_SEQ_LENGTH  - this is the max length of words in a sentence (after tokenization)
-DUPE_FACTOR - this controls how many times a sentence is duplicated to create different masked positions of the same sentence.  
-MAX_PREDICTIONS_PER_SEQ - This controls the maxiumum predictions per sentence (this would be both masked and replaced words)
+- INPUT_DIR  - this is directory where the pieces from step 4a are stored
+- OUTPUT_DIR - output where checkpoints will be stored
+- BERT_VOCAB_FILE - absolute path of vocab file from step 3.
+- BERT_SCRIPTS  - location where github scripts of Google’s pretraining scripts are
+- DO_LOWER_CASE - set this to false for lower case models
+- MAX_SEQ_LENGTH  - this is the max length of words in a sentence (after tokenization)
+- DUPE_FACTOR - this controls how many times a sentence is duplicated to create different masked positions of the same sentence.  
+- MAX_PREDICTIONS_PER_SEQ - This controls the maxiumum predictions per sentence (this would be both masked and replaced words)
 ```
 
 *Example*
@@ -94,22 +94,22 @@ This step uses the trained records from *step 4* to do actual model training
 ## Single GPU run
 ```
 Parameters to be set.
-INPUT_PRETRAIN_FILE - location where all the training records are stored
-OUTPUT_DIR - location where training outputs are stored - the checkpoints
-BERT_VOCAB_FILE - location of vocab from step 3
-BERT_SCRIPTS  - location where github scripts of Google’s pretraining scripts are
-MAX_PREDICTIONS_PER_SEQ - should match what was used in step 4. 
-TRAIN_BATCH_SIZE - 64 for < 20; 32 for < 40; 8 for rest
-MAX_SEQ_LENGTH - should match what was used in step 4. 
-NUM_TRAIN_STEPS - I did 100k for < 20; 500k < 40; and 30k for rest. This may need to be done based on how the cum distribution of words shifts - we don’t want the histogram tails to be too short. 
-NUM_WARMUP_STEPS - this is 1% of train steps for the first checkpoint. 0 for all subsequent trainings
-MAX_EVAL_STEPS - number of evaluations. Only the last evaluation results  are saved though. I haven't figured how to make it save all eval results.
-SAVE_CHECK_POINT_STEPS - too many checkpoints can cause us to run out of diskspace if we are low on it. I did checkpointing every 5k steps
+- INPUT_PRETRAIN_FILE - location where all the training records are stored
+- OUTPUT_DIR - location where training outputs are stored - the checkpoints
+- BERT_VOCAB_FILE - location of vocab from step 3
+- BERT_SCRIPTS  - location where github scripts of Google’s pretraining scripts are
+- MAX_PREDICTIONS_PER_SEQ - should match what was used in step 4. 
+- TRAIN_BATCH_SIZE - 64/32/16 based on memory availability
+- MAX_SEQ_LENGTH - should match what was used in step 4. 
+- NUM_TRAIN_STEPS - I did 100k for < 20; 500k < 40; and 30k for rest. This may need to be done based on how the cum distribution of words shifts - we don’t want the histogram tails to be too short. 
+- NUM_WARMUP_STEPS - this is 1% of train steps for the first checkpoint. 0 for all subsequent trainings
+- MAX_EVAL_STEPS - number of evaluations. Only the last evaluation results  are saved though. I haven't figured how to make it save all eval results.
+- SAVE_CHECK_POINT_STEPS - too many checkpoints can cause us to run out of diskspace if we are low on it. I did checkpointing every 5k steps
  
-LEARNING_RATE - default works reasonably well.  Range to experiment 1 e-4 to 4 e-5
+- LEARNING_RATE - default works reasonably well.  Range to experiment 1 e-4 to 4 e-5
  
-CONTINUED_TRAINING - set this to 0 for initial training and to 1 for subsequent training
-INIT_CHECKPOINT - location of the checkpoint to resume from when CONTINUED_TRAINING is set to 1
+- CONTINUED_TRAINING - set this to 0 for initial training and to 1 for subsequent training
+- INIT_CHECKPOINT - location of the checkpoint to resume from when CONTINUED_TRAINING is set to 1
 
 ```
 
