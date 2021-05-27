@@ -32,7 +32,7 @@ The output from the previous step is used to generate two versions of corpus. On
 
 **(a) Corpus for vocabulary generation**
 
-> This step can be **skipped** if we want to retain numbers and non-english characters. We can directly use the corpus from step 1 for vocab gen in that case.
+> This step can be **skipped** if we want to retain numbers and non-english characters. We can directly use the corpus from step 1 for vocab gen in that case.Note numbers within token like cd20 will be preserved anyays. Filtering numbers is only useful for some domains to avoid a large number of years making way into the base vocab. 
 
 *Example:*
 ```
