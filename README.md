@@ -8,7 +8,7 @@ Details of the pre-training evaluation as well pre-training tips in [the medium 
 Setup pytorch environment with/without GPU support using [link](https://github.com/ajitrajasekharan/multi_gpu_test)
 
 
-## Step 1. Corpus pre-processing for sentence boundary detection
+### Step 1. Corpus pre-processing for sentence boundary detection
 
 *One of BERT's objective is next sentence prediction. The corpus having sentences separated by newline is critical for this reason.*
 
@@ -22,7 +22,7 @@ Then “tr” the output to lowercase approx. This is only required for uncased 
  python bert_sbd.py -input pubmed.txt -single True  | tr 'A-Z' 'a-z' > combined.txt 
 ```
 
-## Step 2.  Create two versions of corpus for vocab generation and pre-training
+### Step 2.  Create two versions of corpus for vocab generation and pre-training
 
 The output from the previous step is used to generate two versions of corpus. One is purely for vocab generation and the other is for pre-training
 
