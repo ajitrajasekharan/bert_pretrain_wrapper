@@ -13,11 +13,11 @@ Setup pytorch environment with/without GPU support using [link](https://github.c
 
 ### Step 1. Corpus pre-processing for sentence boundary detection
 
-*One of BERT's objective is next sentence prediction. The corpus having sentences separated by newline is critical for this reason.*
+*One of BERT's objective is next sentence prediction. The corpus having sentences separated by newlines is critical for this reason.*
 
 Use [this repository code](https://github.com/ajitrajasekharan/simple_sbd.git) for sentence boundary detection
 
-Perform sentence boundary detection using script bert_sbd.py. It filters out lines less than min_words (3) and > max_words (word not characters)
+Perform sentence boundary detection using script bert_sbd.py. It filters out lines less than min_words (3) and greater than max_words (words not characters)
 Then “tr” the output to lowercase approx. This is only required for uncased model pretraining.
 
 *Example:*
