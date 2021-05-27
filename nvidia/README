@@ -1,0 +1,1 @@
+When training on multi GPU machine (e.g. A100), records where crearted with Google code, since whole word masking is not supported in nvidia yet. Only training was done on multiple GPUs with lamb optimizer
