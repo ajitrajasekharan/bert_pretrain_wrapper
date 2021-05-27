@@ -7,7 +7,7 @@ Details of the pre-training evaluation as well pre-training tips in [the medium 
 ## Environment setup 
  - Setup pytorch environment with/without GPU support using [link](https://github.com/ajitrajasekharan/multi_gpu_test)
  - For multi gpu training, Nvidia container may also be required. See section below on *Multi GPU run using Nvidia container*
- - parallel for creating training record gen in parallel. On ubuntu *apt-get install parallel*
+ - *parallel* for creating training record gen in parallel. On ubuntu *apt-get install parallel*
 
 ## Steps to pretrain starting with corpus pre-processing
 
