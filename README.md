@@ -8,6 +8,9 @@ Details of the pre-training evaluation as well pre-training tips in [the medium 
 Setup pytorch environment with/without GPU support using [link](https://github.com/ajitrajasekharan/multi_gpu_test)
 
 
+## Steps to pretrain starting with corpus pre-processing
+
+
 ### Step 1. Corpus pre-processing for sentence boundary detection
 
 *One of BERT's objective is next sentence prediction. The corpus having sentences separated by newline is critical for this reason.*
@@ -27,20 +30,28 @@ Then “tr” the output to lowercase approx. This is only required for uncased 
 The output from the previous step is used to generate two versions of corpus. One is purely for vocab generation and the other is for pre-training
 
 
-**Corpus for vocabulary generation**
+** (a) Corpus for vocabulary generation**
 
 *Example:*
 ```
 ./gen_filtered_vocab_text.sh combined.txt corpus_for_vocab_gen.txt 
 ```
 
-**Corpus for pre-training**
+** (b) Corpus for pre-training**
 
 *Example:*
 ```
 time ./gen_filtered_corpus.sh combined.txt filtered.txt
 ```
 
+### Step 3. Generate BERT vocabulary
+
+Use the corpus from *Step 2a.*  to generate vocabulary
+
+*Example:*
+```
+./gen_bert_vocab.sh corpus_for_vocab_gen.txt  
+```
 
 
 ## Single GPU run
