@@ -85,8 +85,8 @@ MAX_PREDICTIONS_PER_SEQ - This controls the maxiumum predictions per sentence (t
 ./training_record_gen.sh
 ```
 
-Step 5. Actual training of model
-This step uses the trained records from step 4 to do actual model training
+## Step 5. Actual training of model
+This step uses the trained records from *step 4* to do actual model training
 
 **Google's pretraining code can be used as is only for single GPU runs. Nvidia's repository has a version that utilizes multiple GPUS. Training steps for both single and multiple GPUs is described below**
 
