@@ -58,7 +58,7 @@ Use the corpus from *Step 2a.*  to generate vocabulary
 
 ### Step 4. Create pretrain records for training
 
-**(a) This step converts the corpus into pieces (honoring document boundaries)  which is then used by next step to create training records **
+**(a) This step converts the corpus into pieces (honoring document boundaries)  which is then used by next step to create training records**
 
 *Example:*
 ```
