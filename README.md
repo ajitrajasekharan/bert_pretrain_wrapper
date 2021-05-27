@@ -138,7 +138,7 @@ nv2_train.sh
 - To convert Tensorflow checkpoint to PyTorch  use
   -  ```convert_to_pytorch.sh```
 -  To examine model vectors use the [link](https://github.com/ajitrajasekharan/bert_vector_clustering.git)
--  When training model with Google's tensorflow code, checkpoint saving can be done with these scripts. Checkpoint saving tends to delete and keep last n checkpoint. So within the output directory  run a script ../last_save.sh - it will periodically check for checkpoints and save the checkpoint, the vocab and config.json file - all three are needed for pytorch model conversion. Also once all checkpoints are created, run batch_eval.sh from within the output directory to create eval results for all checkpoints.
+-  When training model with Google's tensorflow code, checkpoint saving can be done with the  utility script *last_save.sh* if we want to save all checkpoints as opposed to the last n checkpoints. Checkpoint saving tends to delete and keep last n checkpoint. So within the output directory  run a script ../last_save.sh - it will periodically check for checkpoints and save the checkpoint, the vocab and config.json file - all three are needed for pytorch model conversion. Also once all checkpoints are created, run batch_eval.sh from within the output directory to create eval results for all checkpoints.
 -  As mentioned earlier, details of the pre-training evaluation as well pre-training tips in [the medium post](https://towardsdatascience.com/quantitative-evaluation-of-a-pre-trained-bert-model-73d56719539e) 
 
 
