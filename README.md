@@ -102,7 +102,7 @@ Parameters to be set.
 - MAX_PREDICTIONS_PER_SEQ - should match what was used in step 4. 
 - TRAIN_BATCH_SIZE - 64/32/16 based on memory availability
 - MAX_SEQ_LENGTH - should match what was used in step 4. 
-- NUM_TRAIN_STEPS - I did 100k for < 20; 500k < 40; and 30k for rest. This may need to be done based on how the cum distribution of words shifts - we don’t want the histogram tails to be too short. 
+- NUM_TRAIN_STEPS - ~500k. This may need to be done based on how the cum distribution of words shifts - we don’t want the histogram tails to be too short. 
 - NUM_WARMUP_STEPS - this is 1% of train steps for the first checkpoint. 0 for all subsequent trainings
 - MAX_EVAL_STEPS - number of evaluations. Only the last evaluation results  are saved though. I haven't figured how to make it save all eval results.
 - SAVE_CHECK_POINT_STEPS - too many checkpoints can cause us to run out of diskspace if we are low on it. I did checkpointing every 5k steps
