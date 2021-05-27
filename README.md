@@ -30,14 +30,14 @@ Then “tr” the output to lowercase approx. This is only required for uncased 
 The output from the previous step is used to generate two versions of corpus. One is purely for vocab generation and the other is for pre-training
 
 
-** (a) Corpus for vocabulary generation**
+**(a) Corpus for vocabulary generation**
 
 *Example:*
 ```
 ./gen_filtered_vocab_text.sh combined.txt corpus_for_vocab_gen.txt 
 ```
 
-** (b) Corpus for pre-training**
+**(b) Corpus for pre-training**
 
 *Example:*
 ```
