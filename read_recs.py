@@ -22,7 +22,7 @@ max_count = 100
 
 
 
-for example in tf.python_io.tf_record_iterator("amino_records/bert.tfrecordp1"):
+for example in tf.python_io.tf_record_iterator("records/bert.tfrecordp1"):
     print(tf.train.Example.FromString(example))
     count += 1  
     if (count >= max_count):
