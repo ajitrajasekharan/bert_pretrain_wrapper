@@ -1,6 +1,6 @@
 ## bert_pretrain_wrapper
 
-This repository is a wrapper to pre-train a BERT model from scratch using custom vocabulary in a single of multi GPU machine.
+This repository is a wrapper to pre-train a BERT model from scratch using custom vocabulary in a single or multi GPU machine.
 
 Details of the pre-training evaluation as well pre-training tips in [the medium post](https://towardsdatascience.com/quantitative-evaluation-of-a-pre-trained-bert-model-73d56719539e) 
 
